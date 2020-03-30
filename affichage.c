@@ -1,5 +1,9 @@
 #include "affichage.h"
+/*BUT : -Affichage des valeurs SPO2 et rythme cardiaque
+en BPM
+-.verrouData empêche les accés en lecture et écriture
 
+au même moment*/
 void affichage(oxy myOxy){
     FILE *fp;
     FILE *verrou;

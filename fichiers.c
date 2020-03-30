@@ -1,5 +1,9 @@
 #include "fichiers.h"
-
+/*BUT : -Fonction d'ouverture d'un fichier : initFichier
+-Fonction lecture d'un fichier en retournant un objet 
+de type absorp : lireFichier
+-Fonction fermeture d'un fichier : finFichier
+*/
 FILE* initFichier(char* nomFichier ){
 	
 	FILE* pf=fopen(nomFichier,"r");
