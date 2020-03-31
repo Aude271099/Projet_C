@@ -2,9 +2,8 @@
 #include "affichage.h"
 #include "mesure.h"
 #include "fir.h"
-=======
-#include "fir.h"
->>>>>>> 29a88d1b07ed1adb4009ea4684b22c60e8f12110
+#include "lecture.h"
+#include "fichiers.h"
 
 int main(){
     int etat = 0;
