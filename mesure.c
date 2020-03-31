@@ -24,35 +24,39 @@ oxy mesureTest(char* filename){
 oxy mesure (absorp myabsorp){
 	oxy myoxy;
 	//Calcul des valeurs PTP
-	int ptp_acir = ptp(myabsorp.acir);
-	int ptp_acr = ptp(myabsorp.acr);
+	float ptp_acir = ptp(myabsorp.acir);
+	float ptp_acr = ptp(myabsorp.acr);
+	printf("%f\n", ptp_acir);
 
 	//Calcul de RSIR
 	float rsir;
 	rsir = (ptp_acr/myabsorp.dcr)/(ptp_acir/myabsorp.dcir);
 
 	//Calcul de SPO2
+	printf("%f\n", rsir);
 	myoxy.spo2 = spo2(rsir);
 
 	//calcul de la période
-	int per = ;
+	//int per = ;
 	//calcul de la frequence en BPM
-	myoxy.pouls = 1/per;
+	//myoxy.pouls = 1/per;
+	return myoxy;
 }
 
 float ptp (float AC){
+	float Ptp;
 	return Ptp = 2*abs(AC);
 }
 
 int spo2 (float rsir){
 	int int_rsir = (int) rsir;
 	int result;
-	if (rsir>=0,4 & rsir<=1){
-		return result = -(10/0,4)*int_rsir + 110;
-	} else if (rsir>1 & rsir<= 3,4){
-		return result = -(85/2,4)*int_rsir + 120;
+	if (rsir>=0.4 && rsir<=1){
+		return result = -(10/0.4)*int_rsir + 110;
+	} else if (rsir>1 && rsir<= 3.4){
+		return result = -(85/2.4)*int_rsir + 120;
 	}else{
 		//affiche erreur ??
-		break;
+		//break;
 	}	
 }

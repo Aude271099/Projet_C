@@ -15,3 +15,8 @@ absorp iirTest(char* filename){
 
 }
 
+
+absorp IRR(absorp myAbsorp){
+	
+	return myAbsorp;
+}
