@@ -19,9 +19,12 @@ int main(){
     myOxy.pouls = 104;
 
 
-
+    while (etat != EOF){
+        lecture(fichier, &etat);
+    }
+    
     //mesure(myabsorp);
     //affichage(myOxy);
-    signal_FIR = firTest("record1.dat");
+    //signal_FIR = firTest("record1.dat");
     return 1;
 }

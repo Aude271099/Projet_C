@@ -15,18 +15,20 @@ absorp lecture(FILE* file_pf, int* file_state){
 	int a=0,b=0,c=0,d=0;
 
 	//Lecture fichier
-	*file_state = fscanf(file_pf,"%d,%d,%d,%d%c%c",&a,&b,&c,&d,&x,&y);
+	fscanf(file_pf,"%d,%d,%d,%d%c%c",&a,&b,&c,&d,&x,&y);
 
 	//Mise à EOF de l'état lorsque le fichier à fini d'être lu
 	if (a == 0 && b==0 && c==0 && d==0){
 		*file_state=EOF;
+		return;
 	}
 	
 	//Calcul du nombre utilisé pour centré ACr et ACir
-	int centre = 4095/2;
+	int centre = 4096/2;
 
 	//Renvoie de myabsorb mis à jour
 	myAbsorp = init_myabsorp (a, b, c, d, centre);
+	printf("%f,%f,%f,%f\n", myAbsorp.acr, myAbsorp.dcr, myAbsorp.acir, myAbsorp.dcir);
 	return myAbsorp; //return EOF flag
 
 }
