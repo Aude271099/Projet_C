@@ -1,9 +1,11 @@
 #include "define.h"
 #include "affichage.h"
 #include "mesure.h"
+#include "fir.h"
 
 int main(){
     absorp myabsorp ;
+    absorp signal_FIR;
     myabsorp.acir = 0;
     myabsorp.acr = 0;
     myabsorp.dcir = 2030; 
@@ -13,5 +15,6 @@ int main(){
     myOxy.pouls = 104;
     mesure(myabsorp);
     //affichage(myOxy);
+    signal_FIR = firTest("record1.dat");
     return 1;
 }

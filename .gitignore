@@ -3,7 +3,8 @@ build/
 Images/
 
 *.o
-Projet
+*.dat
+projet_c
 Data.txt
 .verrouData
 interfaceOxymetre.jar
