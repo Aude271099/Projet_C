@@ -67,16 +67,17 @@ float FIR_TAPS[51]={
     1.4774946e-019
 };
 
-int tab_acr[51];
-int tab_acir[51];
+
 
 absorp firTest(char* filename){
 	absorp myAbsorp;
 	absorp signal_FIR;
 	int etat =0;
 	int i;
+    float *tab_acr = malloc(51*sizeof(float));
+    float *tab_acir = malloc(51*sizeof(float));
 
-	for(i = 0; i < 50; i++){
+	for(i = 0; i < 51; i++){
 		tab_acr[i] = 0;
 		tab_acir[i] = 0;
 	}
@@ -90,26 +91,27 @@ absorp firTest(char* filename){
 		}
 	}
 	
+    // printf("%f", signal_FIR.acr);
 	finFichier(fp);
 
 	return signal_FIR; //on retourne le nouveau struct avec les derniers signaux filtrés
 
 }
 
-absorp fir(absorp myAbsorp, int *tab_acr, int *tab_acir){
+absorp fir(absorp myAbsorp, float *tab_acr, float *tab_acir){
 	float signal_sortie_acr = 0;
 	float signal_sortie_acir = 0;
 	absorp signalSortie;
 	int i;
 
-	for (i = 0; i < 49; i++){
+	for (i = 0; i < 50; i++){
 		tab_acr[i] = tab_acr[i+1];
 		tab_acir[i] = tab_acir[i+1];
 	}
 	tab_acr[50] = myAbsorp.acr;
 	tab_acir[50] = myAbsorp.acir;
 
-	for(i = 0; i < 50; i++){ 		//boucle for pour faire la somme de k = 0 à L-1			
+	for(i = 0; i < 51; i++){ 		//boucle for pour faire la somme de k = 0 à L-1			
 									//(L = 51 car 51 coefficients dans le tableau FIR_TAPS)
 		signal_sortie_acr += FIR_TAPS[i] * tab_acr[50 - i];
 		signal_sortie_acir += FIR_TAPS[i] * tab_acir[50 - i];
@@ -117,6 +119,9 @@ absorp fir(absorp myAbsorp, int *tab_acr, int *tab_acir){
 	}
 	signalSortie.acr = signal_sortie_acr;
 	signalSortie.acir = signal_sortie_acir;
+    signalSortie.dcr = myAbsorp.dcr;
+    signalSortie.dcir = myAbsorp.dcir;
+
 
 	return signalSortie;
 }
