@@ -19,14 +19,15 @@ int main(){
     myOxy.pouls = 104;
 
    
-    while (etat != EOF){
-        lecture(fichier, &etat);
-    }
-    
-    //lecture(fichier, &etat);
+    /*while (etat != EOF){
+        myabsorp = lecture(fichier, &etat);
+        myabsorp = fir(myabsorp, tab_acr, tab_acir);
+        myabsorp = irr(myabsorp, tab_acr, tab_acir, tab_signal_sortie);
+        myoxy = mesure(myabsorp);
+        affichage(myOxy);
+    }*/
 
-    //mesure(myabsorp);
-    //affichage(myOxy);
+    mesure(myabsorp);
     //signal_FIR = firTest("record1.dat");
     return 1;
 
