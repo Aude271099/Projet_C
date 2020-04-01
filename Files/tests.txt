@@ -1,0 +1,30 @@
+test1.dat
+	N=45000
+	RsIR = 0.6 -> 0.4 -> 2
+	Sp02 = 95 -> 100 -> 50
+	PR = 85 -> 110 -> 180 
+
+	
+
+test2.dat
+	N=3500
+	RsIR = 0.7
+	Sp02 = 92
+	PR = 120 
+
+
+test3.dat
+	N=10
+	RsIR = 0.7
+	Sp02 = 92
+	PR = 120
+
+
+test4.dat
+	fichier test3.dat corrompu (seulement 8 mesures doivent être lues)
+
+test5.dat
+	N=39627
+	RsIr = 0.8 -> 0.5
+	SpO2 = 90 -> 97.5
+	BPM = 80

@@ -7,7 +7,7 @@
 
 int main(){
     int etat = 0;
-    FILE* fichier = initFichier("record1_bin.dat");
+    FILE* fichier = initFichier("Files/test3.dat");
     absorp myabsorp ;
     absorp signal_FIR;
     myabsorp.acir = 0;
@@ -29,4 +29,5 @@ int main(){
     //affichage(myOxy);
     //signal_FIR = firTest("record1.dat");
     return 1;
+
 }
