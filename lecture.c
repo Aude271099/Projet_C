@@ -11,27 +11,57 @@ passe à EOF
 absorp lecture(FILE* file_pf, int* file_state){
 	//Initialisations
 	absorp myAbsorp;
-	char x,y;
 	int a=0,b=0,c=0,d=0;
+	char chaine[25];
+	int nb = 0;
 
-	//Lecture fichier
-	fscanf(file_pf,"%d,%d,%d,%d%c%c",&a,&b,&c,&d,&x,&y);
 
+	//Vérification des lignes corrompues et lecture du fichier
+	fgets(chaine, 25, file_pf);
+	//printf("%s\n", chaine);
+	char delim[] = ",";
+	char* ptr = malloc(25*sizeof(char));
+	ptr = strtok(chaine, delim);
+	while(ptr != NULL){
+		//printf("%s\n",ptr);
+		if(nb == 0){
+			a = atoi(ptr) ;
+		}else if (nb == 1)		{
+			b = atoi(ptr);
+		}else if (nb == 2)		{
+			c = atoi(ptr);
+		}else if (nb == 3)		{
+			d = atoi(ptr);
+		}
+	
+		ptr = strtok(NULL, delim);
+		nb ++;
+	}
+
+	//printf("%i\n",a);
 	//Mise à EOF de l'état lorsque le fichier à fini d'être lu
-	if (a == 0 && b==0 && c==0 && d==0){
+	if (feof(file_pf)){
 		*file_state=EOF;
 		return;
+	//Ignorement des lignes corompues
+	}else if (nb != 4){
+		printf("ligne corrompue\n");
+		return;
 	}
+	//Lecture de la ligne entrée
+	fgets(chaine, 25, file_pf);
 	
 	//Calcul du nombre utilisé pour centré ACr et ACir
 	int centre = 4096/2;
 
 	//Renvoie de myabsorb mis à jour
 	myAbsorp = init_myabsorp (a, b, c, d, centre);
-	printf("%f,%f,%f,%f\n", myAbsorp.acr, myAbsorp.dcr, myAbsorp.acir, myAbsorp.dcir);
+	//printf("%f,%f,%f,%f\n", myAbsorp.acr, myAbsorp.dcr, myAbsorp.acir, myAbsorp.dcir);
 	return myAbsorp; //return EOF flag
 
 }
+
+
 
 absorp init_myabsorp(int a,int b,int c,int d, int centre){
 	absorp myAbsorp;
@@ -41,3 +71,4 @@ absorp init_myabsorp(int a,int b,int c,int d, int centre){
 	myAbsorp.dcr = b;
 	return myAbsorp;
 }
+

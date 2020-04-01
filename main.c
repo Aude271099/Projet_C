@@ -18,11 +18,13 @@ int main(){
     myOxy.spo2 = 98;
     myOxy.pouls = 104;
 
-
+   
     while (etat != EOF){
         lecture(fichier, &etat);
     }
     
+    //lecture(fichier, &etat);
+
     //mesure(myabsorp);
     //affichage(myOxy);
     //signal_FIR = firTest("record1.dat");

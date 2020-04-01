@@ -24,17 +24,17 @@ oxy mesureTest(char* filename){
 oxy mesure (absorp myabsorp){
 	oxy myoxy;
 	//Calcul des valeurs PTP
-	float ptp_acir = ptp(myabsorp.acir);
-	float ptp_acr = ptp(myabsorp.acr);
-	printf("%f\n", ptp_acir);
+	/*float ptp_acir = ptp(myabsorp.acir);
+	float ptp_acr = ptp(myabsorp.acr);*/
+	//printf("%f\n", ptp_acir);
 
 	//Calcul de RSIR
 	float rsir;
-	rsir = (ptp_acr/myabsorp.dcr)/(ptp_acir/myabsorp.dcir);
+	//rsir = (ptp_acr/myabsorp.dcr)/(ptp_acir/myabsorp.dcir);
 
 	//Calcul de SPO2
-	printf("%f\n", rsir);
-	myoxy.spo2 = spo2(rsir);
+	//printf("%f\n", rsir);
+	//myoxy.spo2 = spo2(rsir);
 
 	//calcul de la période
 	//int per = ;
@@ -43,10 +43,10 @@ oxy mesure (absorp myabsorp){
 	return myoxy;
 }
 
-float ptp (float AC){
+/*float ptp (float AC){
 	float Ptp;
 	return Ptp = 2*abs(AC);
-}
+}*/
 
 int spo2 (float rsir){
 	int int_rsir = (int) rsir;
@@ -59,4 +59,45 @@ int spo2 (float rsir){
 		//affiche erreur ??
 		//break;
 	}	
+}
+
+
+//Fonction pour le calcul des min et max pour ptp et calcul de la periode
+int calcul(absorp myabsorp, int etat){
+	//période, "1 ligne" toutes les 2ms 
+	int debut = 0;
+	int periode = 0;
+	if (etat = 1){
+		debut = myabsorp.acr;
+	}else if (debut != myabsorp.acr && etat != 1){
+			periode ++;
+	}
+	
+	
+	
+
+	//max acr et acir
+	int max_acr = 0;
+	int max_acir = 0;
+	if(myabsorp.acr > max_acr) {
+		max_acr = myabsorp.acr;
+	}
+	if(myabsorp.acir > max_acir) {
+		max_acir = myabsorp.acir;
+	}
+
+	//min acr et acir
+	
+	int min_acr = 0;
+	int min_acir = 0;
+	if (myabsorp.acr < min_acr) {
+		min_acr = myabsorp.acr;
+	}
+	if (myabsorp.acir < min_acir) {
+		min_acir = myabsorp.acir;
+	}else if (myabsorp.acr > max_acr && myabsorp.acir > max_acir)
+	{
+		return ;
+	}
+	
 }
