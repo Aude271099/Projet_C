@@ -4,7 +4,7 @@ Images/
 
 *.o
 *.dat
-projet_c
+projet_c.exe
 Data.txt
 .verrouData
 interfaceOxymetre.jar
