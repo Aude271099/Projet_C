@@ -67,8 +67,9 @@ float FIR_TAPS[51]={
     1.4774946e-019
 };
 
+//fonction d'initialisations des paramètres
 param_fir* init_fir(){
-    param_fir* myParam_fir;
+    param_fir* myParam_fir = malloc(sizeof(param_fir));
     int i;
     //on alloue de la mémoire aux paramètres
     myParam_fir->tab_acr = malloc(51*sizeof(float)); //tableau de pointeurs dans lequel on mettra les valeurs des acr

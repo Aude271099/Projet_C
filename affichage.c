@@ -30,6 +30,11 @@ void affichage(oxy myOxy){
         fclose(fp); //fermeture du fichier
         
     }
-    
+
+    // printf("\nSPO2 : ");
+    // printf("%d", myOxy.spo2);
+    // printf("   Pouls : ");
+    // printf("%d", myOxy.pouls);
+
 }
 

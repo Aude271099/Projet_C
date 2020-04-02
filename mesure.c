@@ -130,7 +130,8 @@ int spo2 (float rsir){
 	} else if (rsir>1 && rsir<= 3.4){
 		result = -(85/2.4)*rsir + 120;
 		return (int) result;
-	}	
+	}
+	return 0;
 }
 
 //Fonction pour le calcul des valeurs Max, Min de ACr et ACir et de la période

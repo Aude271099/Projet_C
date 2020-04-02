@@ -9,3 +9,5 @@ typedef struct{
 
 absorp firTest(char* filename);
 absorp fir(absorp myAbsorp, param_fir myParam_fir);
+
+param_fir * init_fir();

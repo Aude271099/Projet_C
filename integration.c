@@ -13,39 +13,48 @@ jusqu'a la fin de la lecture du fichier
 
 void integrationTest(char* filename)
 {
-    // absorp myAbsorp;
-    // oxy myOxy;
-    // int etat = 0;
-    
-    // FILE *fp = initFichier(filename);
-    // lireFichier(fp, etat)
+    int etat=0;
+    absorp myAbsorp;
+    oxy myOxy;
+    param_fir* myFIR = init_fir(); // init FIR
+    param_iir* myIIR = init_iir(); // init IIR
+    // init mesure
+    //Initialisation des pointeurs 
+    int tab_periode[100];
+	int j ;
+	for(j = 0; j < 100; j++){
+		tab_periode[j] = 0;
+	}
+	int* periode =malloc(sizeof(int));
+	int* deb =malloc(sizeof(int));
+	int* i =malloc(sizeof(int));
+	int* debut = malloc(sizeof(int));
+	int* max_acr = malloc(sizeof(int));
+	int* max_acir = malloc(sizeof(int));
+    int* min_acr = malloc(sizeof(int));
+	int* min_acir = malloc(sizeof(int));
+	*periode = 0;
+	*deb = 0;
+	*debut = 0;
+	*i = 0;
+	*max_acr = 0;
+	*max_acir = 0;
+	*min_acr = 0; 
+	*min_acir = 0;
 
 
+    FILE* myFile = initFichier(filename);
+    do{
+        myAbsorp = lireFichier(myFile,&etat);
+        myAbsorp = fir(myAbsorp,*myFIR);
+        myAbsorp = iir(myAbsorp,*myIIR);
+        myOxy = mesure(myAbsorp, i, periode, tab_periode, deb, max_acr, max_acir, min_acr, min_acir, debut);
+        affichage(myOxy);
+    }while( etat != EOF );
 
-    // myAbsorp = firTest(filename);
-    // myAbsorp = iirTest(filename);
-    // myAbsorp = mesureTest(filename);
-    // affichage(myOxy);
+    printf("\n\nSPO2 final : ");
+    printf("%d", myOxy.spo2);
+    printf("    Pouls final : ");
+    printf("%d", myOxy.pouls);
 }
 
-// int main(){
-// int etat=0;
-// absorp myAbsorp;
-// oxy myOxy;
-// param_fir* myFIR = init_fir(…); // init FIR
-// param_iir* myIIR = init_iir(…); // init IIR
-// param_mesure* myMes = init_mesure(…) // init mesure
-// FILE* myFile = initFichier("record1.dat");
-// do{
-// myAbsorp = lireFichier(myFile,&etat);
-// myAbsorp = fir(myAbsorp,myFIR);
-// myAbsorp = iir(myAbsorp,myIIR);
-// myOxy = mesure(myAbsorp,myMes);
-// affichage(myOxy);
-// }while( etat != EOF );
-// finFichier(myFile);
-// fin_mesure(myMes);
-// fin_iir(myIIR);
-// fin_fir(myFIR) ;
-// return EXIT_SUCCESS;
-// }
