@@ -22,8 +22,9 @@ oxy mesureTest(char* filename){
 	absorp myabsorp;
 	int etat =0;
 	int tab_periode[100];
-	for(int i = 0; i < 100; i++){
-		tab_periode[i] = 0;
+	int j ;
+	for(j = 0; j < 100; j++){
+		tab_periode[j] = 0;
 	}
 	int* periode =malloc(sizeof(int));
 	int* deb =malloc(sizeof(int));
@@ -148,6 +149,7 @@ void calcul(absorp myabsorp, int* i, int* periode, int tab_periode[], int* deb, 
 	int max = 0;
 	int min = 0;
 	int per =0;
+	int j ;
 	//max acr et acir
 	//printf("%f	", myabsorp.acr);
 	//printf("%f	", myabsorp.acir);
@@ -175,7 +177,7 @@ void calcul(absorp myabsorp, int* i, int* periode, int tab_periode[], int* deb, 
 		*deb = 1;
 		//printf("periode\n");
 		printf("i %i	", *i);
-		for (int j = 0; j <= *i; j++){
+		for (j= 0; j <= *i; j++){
 			per += tab_periode[j];
 			printf("tab %i	%i\n", tab_periode[j], j);
 			//printf("%i\n", periode);
