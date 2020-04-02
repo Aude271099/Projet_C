@@ -12,6 +12,10 @@ passe à EOF
 absorp lecture(FILE* file_pf, int* file_state){
 	//Initialisations
 	absorp myAbsorp;
+	myAbsorp.acr = 0;
+	myAbsorp.acir = 0;
+	myAbsorp.dcr = 0;
+	myAbsorp.dcir = 0;
 	int a=0,b=0,c=0,d=0;
 	char chaine[25];
 	int corrompu = 1;
@@ -25,7 +29,7 @@ absorp lecture(FILE* file_pf, int* file_state){
 		//Mise à EOF de l'état lorsque le fichier à fini d'être lu
 		if (feof(file_pf)){
 			*file_state=EOF;
-			return;
+			return myAbsorp;
 		}
 		
 		char delim[] = ",";
