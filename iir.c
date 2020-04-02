@@ -85,3 +85,9 @@ absorp iir(absorp myAbsorp, param_iir myParam_iir){
 
 	return signal_IIR; //on retourne le signal de sortie
 }
+
+void free_iir(param_iir* myParam_iir){
+	free(myParam_iir->tab_acr);
+	free(myParam_iir->tab_acir);
+	free(myParam_iir->tab_signal_sortie);
+}

@@ -13,7 +13,7 @@ int main(){
     oxy myOxy;
     param_fir* myFIR = init_fir(); // init FIR
     param_iir* myIIR = init_iir(); // init IIR
-    // init mesure
+    mymes* myMesure = init_mesure(); //init mesure
     //Initialisation des pointeurs 
     int tab_periode[100];
 	int j ;
@@ -43,9 +43,11 @@ int main(){
         myAbsorp = lecture(myFile,&etat);
         myAbsorp = fir(myAbsorp,*myFIR);
         myAbsorp = iir(myAbsorp,*myIIR);
-        myOxy = mesure(myAbsorp, i, periode, tab_periode, deb, max_acr, max_acir, min_acr, min_acir, debut);
+        myOxy = mesure(myAbsorp, tab_periode, myMesure);
         affichage(myOxy);
     }while( etat != EOF );
+    free_fir(myFIR);
+    free_iir(myIIR);
 
     printf("\n\nSPO2 final : ");
     printf("%d", myOxy.spo2);
