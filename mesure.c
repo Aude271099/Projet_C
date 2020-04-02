@@ -171,12 +171,7 @@ void calcul(absorp myabsorp, int* i, int* periode, int tab_periode[], int* deb, 
 	}
 	//printf("max :%i	min:%i	debut:%i	val:%f\n",max, min, *debut, myabsorp.acr);
 	//calcul de la periode
-	int add = *debut + myabsorp.acr;
-	//printf("somme add :%i\n", add);
-	if(*debut != myabsorp.acr && ((*debut<=add && add<=myabsorp.acr) || (*debut>=add && add>=myabsorp.acr))){
-		add = 1;
-	}
-	if (max == 1 && min == 1 && add == 1){
+	if (max == 1 && min == 1 && myabsorp.acr >= 0 && *debut<0){
 		*deb = 1;
 		//printf("periode\n");
 		printf("i %i	", *i);
