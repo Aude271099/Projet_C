@@ -55,7 +55,6 @@ absorp iirTest(char* filename){
 absorp iir(absorp myAbsorp, param_iir myParam_iir){
 	//initialisation des variables propres à la fonction
 	absorp signal_IIR; //signal de sortie, c'est celui que va retourner la fonction
-	int i;
 
 	//on initialise les valeurs acr et dcr du signal de sortie à 0
 	signal_IIR.acr = 0;
@@ -65,11 +64,9 @@ absorp iir(absorp myAbsorp, param_iir myParam_iir){
     signal_IIR.dcir = myAbsorp.dcir; 
 	
 	//décalage vers la gauche de toutes nos valeurs dans les tableaux acr, acir et signal de sortie
-	for (i = 0; i < 2; i++){
-		myParam_iir.tab_acr[i] = myParam_iir.tab_acr[i+1];
-		myParam_iir.tab_acir[i] = myParam_iir.tab_acir[i+1];
-		myParam_iir.tab_signal_sortie[i] = myParam_iir.tab_signal_sortie[i+1];
-	}
+	myParam_iir.tab_acr[0] = myParam_iir.tab_acr[1];
+	myParam_iir.tab_acir[0] = myParam_iir.tab_acir[1];
+	myParam_iir.tab_signal_sortie[0] = myParam_iir.tab_signal_sortie[1];
 
 	//on écrit les données de la ligne dans la dernière case de chaque tableau
 	myParam_iir.tab_acr[1] = myAbsorp.acr;
