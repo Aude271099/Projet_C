@@ -52,9 +52,9 @@ void integrationTest(char* filename)
         affichage(myOxy);
     }while( etat != EOF );
 
-    printf("\n\nSPO2 final : ");
+    /*printf("\n\nSPO2 final : ");
     printf("%d", myOxy.spo2);
     printf("    Pouls final : ");
-    printf("%d", myOxy.pouls);
+    printf("%d", myOxy.pouls);*/
 }
 
