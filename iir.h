@@ -12,4 +12,6 @@ absorp iirTest(char* filename);
 absorp iir(absorp myAbsorp, param_iir myParam_iir);
 
 param_iir* init_iir();
+void free_iir(param_iir* myParam_iir);
+
 

@@ -139,3 +139,8 @@ absorp fir(absorp myAbsorp, param_fir myParam_fir){
 
 	return signalSortie; //on retourne le signal de sortie
 }
+
+void free_fir(param_fir* myParam_fir){
+    free(myParam_fir->tab_acr);
+    free(myParam_fir->tab_acir);
+}
