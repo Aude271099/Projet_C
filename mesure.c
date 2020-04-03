@@ -45,9 +45,9 @@ oxy mesureTest(char* filename){
 	absorp myabsorp;
 	mymes *myMesure = init_mesure();
 	int etat =0;
-	int tab_periode[100];
+	int tab_periode[15];
 	int j ;
-	for(j = 0; j < 100; j++){
+	for(j = 0; j < 15; j++){
 		tab_periode[j] = 0;
 	}
 
@@ -56,12 +56,14 @@ oxy mesureTest(char* filename){
 
 	//Lecture du fichier 
 	while(etat != EOF){
+		//Lecture du fichier
 		myabsorp = lireFichier(fp, &etat);
 		if(etat != EOF){
 			myOxy = mesure(myabsorp, tab_periode, myMesure);
 		}
 	}
 
+	//Fermeture du fichier
 	finFichier(fp);
 	return myOxy;
 
@@ -82,49 +84,31 @@ oxy mesure (absorp myabsorp, int tab_periode[], mymes * myMesure){
 	float freq = 0;
 	float freq_bpm = 0;
 	
-	//Attente d'avoir des valeurs min, max et une periode pour calculer les éléments de myoxy
-	if (myMesure->deb != 1){
-		//Calcul des valeurs Max, Min de ACr et ACir et de la période
-		calcul(myabsorp, tab_periode, myMesure);
-	}else{
-		//Calcul des valeurs Max, Min de ACr et ACir et de la période en continue
-		calcul(myabsorp, tab_periode, myMesure);
+	
+	//Calcul des valeurs Max, Min de ACr et ACir et de la période sur chaque période
+	calcul(myabsorp, tab_periode, myMesure);
 
-		//Calcul des valeurs PTP d'ACr et d'ACir
-		ptp_acr = ptp(myMesure->max_acr, myMesure->min_acr);
-		ptp_acir = ptp(myMesure->max_acir, myMesure->min_acir);
+	//Calcul des valeurs PTP d'ACr et d'ACir
+	ptp_acr = ptp(myMesure->max_acr, myMesure->min_acr);
+	ptp_acir = ptp(myMesure->max_acir, myMesure->min_acir);
 
-		//Calcul de RSIR
-		rsir = (ptp_acr/myabsorp.dcr)/(ptp_acir/myabsorp.dcir);
+	//Calcul de RSIR
+	rsir = (ptp_acr/myabsorp.dcr)/(ptp_acir/myabsorp.dcir);
 
-		//Calcul de SPO2
-		myoxy.spo2 = spo2(rsir);
-		//------------------------------------------------------------------------------------
+	//Calcul de SPO2
+	myoxy.spo2 = spo2(rsir);
 
-		//Calcul de la période : 1 valeur -> 2ms
-		per = myMesure->periode * 0.002;
+	//------------------------------------------------------------------------------------
+
+	//Calcul de la période : 1 valeur -> 2ms
+	per = myMesure->periode * 0.002;
 		
-		//Calcul de la frequence en HZ
-		freq = 1/per;
+	//Calcul de la frequence en HZ
+	freq = 1/per;
 
-		//Calcul de la fréquence en BPM
-		freq_bpm = freq*60;
-		myoxy.pouls = freq_bpm;
-	}
-
-	//lissage
-
-	// for(j = 0; j<9; j++){
-	// 	myMesure->tab10oxy[j] = myMesure->tab10oxy[j+1];
-	// }
-	// myMesure->tab10oxy[9] = myoxy;
-
-	// for(j = 0; j<9; j++){
-	// 	oxymoy.pouls += myMesure->tab10oxy[j].pouls;
-	// 	oxymoy.spo2 += myMesure->tab10oxy[j].spo2;
-	// }
-	// oxymoy.pouls = oxymoy.pouls/10;
-	// oxymoy.spo2 = oxymoy.spo2/10;
+	//Calcul de la fréquence en BPM
+	freq_bpm = freq*60;
+	myoxy.pouls = freq_bpm;
 	
 	return myoxy;
 }
@@ -140,9 +124,11 @@ float ptp (int max_ac, int min_ac){
 //Fonction calculant SPO2
 int spo2 (float rsir){
 	float result;
+	//Calcul de SPO2 dans l'inerval [0.4 ; 1]
 	if (rsir>=0.4 && rsir<=1){
 		result = -(10/0.4)*rsir + 110;
 		return (int) result;
+	//Calcul de SPO2 dans l'inerval [1 ; 3.4]
 	} else if (rsir>1 && rsir<= 3.4){
 		result = -(85/2.4)*rsir + 120;
 		return (int) result;
@@ -165,6 +151,7 @@ void calcul(absorp myabsorp, int tab_periode[], mymes *myMesure){
 	}
 	if(myabsorp.acir >= myMesure->max_acir) {
 		myMesure->max_acir = myabsorp.acir;
+	//Les maximums ont été trouvé, mise à 1 de max
 	}else if (myabsorp.acr < myMesure->max_acr && myabsorp.acir < myMesure->max_acir){
 		max = 1;
 	}
@@ -175,15 +162,31 @@ void calcul(absorp myabsorp, int tab_periode[], mymes *myMesure){
 	}
 	if (myabsorp.acir <= myMesure->min_acir) {
 		myMesure->min_acir = myabsorp.acir;
+	//Les mimimums ont été trouvé, mise à 1 de min
 	}else if (myabsorp.acr > myMesure->min_acr && myabsorp.acir > myMesure->min_acir && myMesure->min_acr < 0){
 		min = 1;
-	}
-
+	}	
+	
 	//calcul de la periode
 	if (max == 1 && min == 1 && myabsorp.acr >= 0 && myMesure->debut<0){ //Une periode entière est passé
-		//Changement d'état dans la fct mesure, les valeurs myoxy peuvent commencer à étre calculer
-		myMesure->deb = 1;
+		//Réinitialisation des maximums et mimimums pour la prochaine période
+		myMesure->max_acr = 0;
+		myMesure->min_acr = 0;
+		myMesure->max_acir = 0;
+		myMesure->min_acir = 0;
 
+		//Remise à 0 du tableau enregistrant les périodes au bout de 10 périodes
+		if (myMesure->i >= 10){
+			//on garde la dernière période trouvé enregistrée
+			tab_periode[0] = tab_periode[myMesure->i];
+			//Remise à 0 du tableau 
+			for (j= 1; j <= myMesure->i; j++){
+				tab_periode[j] = 0;
+			}
+			//Réinitialisation de i
+			myMesure->i = 0;
+		}
+		
 		//Calcul de la moyenne des périodes
 		for (j= 0; j <= myMesure->i; j++){
 			per += tab_periode[j];
@@ -193,15 +196,10 @@ void calcul(absorp myabsorp, int tab_periode[], mymes *myMesure){
 		//incrémentation du nb de période
 		myMesure->i += 1;
 
-		//debut prend la valeur de ACr
-		myMesure->debut = myabsorp.acr;
 	}else{//Calcul du nb de valeur dans une période
 		tab_periode[myMesure->i] += 1;
 	}
-	//debut prend la valeur de ACr
-	myMesure->debut = myabsorp.acr;
-}
 
-void free_mesure(mymes *myMesure){
-	//Liberation des pointeurs
+	//debut prend la valeur de myaborp
+	myMesure->debut = myabsorp.acr;
 }

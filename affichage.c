@@ -12,7 +12,7 @@ void affichage(oxy myOxy){
 
     verrou = fopen(".verrouData", "r");//Création du verrou
     if(verrou){  // Fichier verrou existe
-        printf(".verrouData existe"); //on affiche que le verrou existe pour ne pas laisser la boucle vide
+        //printf(".verrouData existe"); //on affiche que le verrou existe pour ne pas laisser la boucle vide
         fclose(verrou);
 
     }else{  // Fichier n'existe pas

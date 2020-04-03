@@ -4,11 +4,11 @@ typedef struct{
     int periode;
 	int deb;
 	int i;
-	int debut;
-	int max_acr;
-	int max_acir;
-    int min_acr;
-	int min_acir;
+	float debut;
+	float max_acr;
+	float max_acir;
+    float min_acr;
+	float min_acir;
 	oxy tab10oxy[10];
 } mymes;
 

@@ -38,10 +38,9 @@ void integrationTest(char* filename)
     }while( etat != EOF );
     free_fir(myFIR);
     free_iir(myIIR);
-    printf("test2\n");
 
     printf("\n\nSPO2 final : ");
     printf("%d", myOxy.spo2);
     printf("    Pouls final : ");
-    printf("%d", myOxy.pouls);
+    printf("%d\n", myOxy.pouls);
 }
