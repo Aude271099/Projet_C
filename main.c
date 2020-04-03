@@ -1,3 +1,4 @@
+#define _DEFAULT_SOURCE
 #include "define.h"
 #include "affichage.h"
 #include "mesure.h"
@@ -20,31 +21,18 @@ int main(){
 	for(j = 0; j < 100; j++){
 		tab_periode[j] = 0;
 	}
-	int* periode =malloc(sizeof(int));
-	int* deb =malloc(sizeof(int));
-	int* i =malloc(sizeof(int));
-	int* debut = malloc(sizeof(int));
-	int* max_acr = malloc(sizeof(int));
-	int* max_acir = malloc(sizeof(int));
-    int* min_acr = malloc(sizeof(int));
-	int* min_acir = malloc(sizeof(int));
-	*periode = 0;
-	*deb = 0;
-	*debut = 0;
-	*i = 0;
-	*max_acr = 0;
-	*max_acir = 0;
-	*min_acr = 0; 
-	*min_acir = 0;
 
 
-    FILE* myFile = initFichier("test2_c.dat");
+    FILE* myFile = initFichier("test1_c.dat");
     do{
-        myAbsorp = lecture(myFile,&etat);
-        myAbsorp = fir(myAbsorp,*myFIR);
-        myAbsorp = iir(myAbsorp,*myIIR);
-        myOxy = mesure(myAbsorp, tab_periode, myMesure);
-        affichage(myOxy);
+        myAbsorp = lireFichier(myFile,&etat);
+        if(etat != EOF){
+            myAbsorp = fir(myAbsorp,*myFIR);
+            myAbsorp = iir(myAbsorp,*myIIR);
+            myOxy = mesure(myAbsorp, tab_periode, myMesure);
+            affichage(myOxy);
+        }
+        // usleep(2000);
     }while( etat != EOF );
     free_fir(myFIR);
     free_iir(myIIR);

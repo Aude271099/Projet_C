@@ -29,10 +29,12 @@ void integrationTest(char* filename)
     FILE* myFile = initFichier(filename);
     do{
         myAbsorp = lireFichier(myFile,&etat);
-        myAbsorp = fir(myAbsorp,*myFIR);
-        myAbsorp = iir(myAbsorp,*myIIR);
-        myOxy = mesure(myAbsorp, tab_periode, myMesure);
-        affichage(myOxy);
+        if(etat != EOF){
+            myAbsorp = fir(myAbsorp,*myFIR);
+            myAbsorp = iir(myAbsorp,*myIIR);
+            myOxy = mesure(myAbsorp, tab_periode, myMesure);
+            affichage(myOxy);
+        }
     }while( etat != EOF );
     free_fir(myFIR);
     free_iir(myIIR);
