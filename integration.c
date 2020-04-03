@@ -21,12 +21,11 @@ void integrationTest(char* filename)
     mymes * myMesure = init_mesure();
     // init mesure
     //Initialisation des pointeurs
-    int tab_periode[100];
+    int tab_periode[200];
 	int j ;
-	for(j = 0; j < 100; j++){
+	for(j = 0; j < 200; j++){
 		tab_periode[j] = 0;
 	}
-
     FILE* myFile = initFichier(filename);
     do{
         myAbsorp = lireFichier(myFile,&etat);
@@ -35,12 +34,12 @@ void integrationTest(char* filename)
         myOxy = mesure(myAbsorp, tab_periode, myMesure);
         affichage(myOxy);
     }while( etat != EOF );
-
     free_fir(myFIR);
     free_iir(myIIR);
+    printf("test2\n");
 
     printf("\n\nSPO2 final : ");
     printf("%d", myOxy.spo2);
     printf("    Pouls final : ");
-    printf("%d", myOxy.pouls);*/
+    printf("%d", myOxy.pouls);
 }
