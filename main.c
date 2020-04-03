@@ -25,7 +25,7 @@ int main(){
 
     FILE* myFile = initFichier("test1_c.dat");
     do{
-        myAbsorp = lecture(myFile,&etat);
+        myAbsorp = lireFichier(myFile,&etat);
         if(etat != EOF){
             myAbsorp = fir(myAbsorp,*myFIR);
             myAbsorp = iir(myAbsorp,*myIIR);

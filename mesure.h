@@ -9,6 +9,7 @@ typedef struct{
 	int max_acir;
     int min_acr;
 	int min_acir;
+	oxy tab10oxy[10];
 } mymes;
 
 mymes *init_mesure();

@@ -30,6 +30,12 @@ mymes *init_mesure(){
 	myMesure->min_acr = 0; 
 	myMesure->min_acir = 0;
 
+	int j;
+	for(j = 0; j<10; j++){
+		myMesure->tab10oxy[j].pouls = 0;
+		myMesure->tab10oxy[j].spo2 = 0;
+	}
+
 	return myMesure;
 }
 
@@ -65,6 +71,10 @@ oxy mesureTest(char* filename){
 oxy mesure (absorp myabsorp, int tab_periode[], mymes * myMesure){
 	//Initialisation des variables 
 	oxy myoxy;
+	oxy oxymoy;
+	oxymoy.pouls = 0;
+	oxymoy.spo2 = 0;
+	int j;
 	float ptp_acr;
 	float ptp_acir;
 	float rsir;
@@ -101,6 +111,21 @@ oxy mesure (absorp myabsorp, int tab_periode[], mymes * myMesure){
 		freq_bpm = freq*60;
 		myoxy.pouls = freq_bpm;
 	}
+
+	//lissage
+
+	// for(j = 0; j<9; j++){
+	// 	myMesure->tab10oxy[j] = myMesure->tab10oxy[j+1];
+	// }
+	// myMesure->tab10oxy[9] = myoxy;
+
+	// for(j = 0; j<9; j++){
+	// 	oxymoy.pouls += myMesure->tab10oxy[j].pouls;
+	// 	oxymoy.spo2 += myMesure->tab10oxy[j].spo2;
+	// }
+	// oxymoy.pouls = oxymoy.pouls/10;
+	// oxymoy.spo2 = oxymoy.spo2/10;
+	
 	return myoxy;
 }
 
