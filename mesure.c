@@ -73,10 +73,6 @@ oxy mesureTest(char* filename){
 oxy mesure (absorp myabsorp, int tab_periode[], mymes * myMesure){
 	//Initialisation des variables 
 	oxy myoxy;
-	oxy oxymoy;
-	oxymoy.pouls = 0;
-	oxymoy.spo2 = 0;
-	int j;
 	float ptp_acr;
 	float ptp_acir;
 	float rsir;

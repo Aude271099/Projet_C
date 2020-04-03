@@ -15,31 +15,31 @@ int main(){
     param_fir* myFIR = init_fir(); // init FIR
     param_iir* myIIR = init_iir(); // init IIR
     mymes* myMesure = init_mesure(); //init mesure
-    //Initialisation des pointeurs 
-    int tab_periode[100];
-	int j ;
+
+    int tab_periode[100]; //tableau de période de 200 entiers
+	int j ; //déclaration de j pour les boucles
 	for(j = 0; j < 100; j++){
-		tab_periode[j] = 0;
+		tab_periode[j] = 0; //on initialise toutes les valeurs du tableau à 0
 	}
 
-
-    FILE* myFile = initFichier("Files/test1_c.dat");
+    FILE* myFile = initFichier("record1_bin.dat"); //ouverture du fichier record1_bin.dat
     do{
-        myAbsorp = lireFichier(myFile,&etat);
-        if(etat != EOF){
-            myAbsorp = fir(myAbsorp,*myFIR);
-            myAbsorp = iir(myAbsorp,*myIIR);
-            myOxy = mesure(myAbsorp, tab_periode, myMesure);
-            affichage(myOxy);
+        myAbsorp = lecture(myFile,&etat); //lecture du fichier
+        if(etat != EOF){ //si la lecture du fichier n'est pas terminée
+            myAbsorp = fir(myAbsorp,*myFIR); //le signal d'entrée passe dans le filtre FIR
+            myAbsorp = iir(myAbsorp,*myIIR); //le signal de sortie du FIR passe dans le filtre IIR
+            myOxy = mesure(myAbsorp, tab_periode, myMesure); //On fait les calculs de spo2 et du BPM sur le signal de sortie du IIR
+            affichage(myOxy); //On affiche les valeurs en écrivant dans le fichier "Data.txt"
         }
-        // usleep(2000);
-    }while( etat != EOF );
-    free_fir(myFIR);
-    free_iir(myIIR);
+        usleep(2000); //attente de 2ms
+    }while( etat != EOF ); //tant que la lecture du fichier n'est pas terminée
+    free_fir(myFIR); //on libère la mémoire des pointeurs de FIR
+    free_iir(myIIR); //on libère la mémoire des pointeurs de IIR
 
-    printf("\n\nSPO2 final : ");
+    //affichage final
+    printf("\n\nSPO2 final : "); //affichage spo2
     printf("%d", myOxy.spo2);
-    printf("    Pouls final : ");
+    printf("    Pouls final : "); //affichage pouls
     printf("%d", myOxy.pouls);
     return 1;
 
